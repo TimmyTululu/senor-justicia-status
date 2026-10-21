@@ -2,7 +2,7 @@ name: Public availability
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '40 21 * * *'
 permissions:
   contents: read
 concurrency:
