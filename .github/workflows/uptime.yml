@@ -1,0 +1,33 @@
+name: Public availability
+run-name: ${{ inputs.alert_drill && 'Notification drill (synthetic)' || 'Public availability' }}
+on:
+  workflow_dispatch:
+    inputs:
+      alert_drill:
+        description: 'Intentional alert test; does not mean the site is down'
+        type: boolean
+        default: false
+  schedule:
+    - cron: '2-59/5 * * * *'
+permissions:
+  contents: read
+concurrency:
+  group: public-availability
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Intentional notification test
+        if: ${{ inputs.alert_drill }}
+        run: |
+          echo '::error::Intentional notification drill. This is not a site outage.'
+          exit 1
+      - uses: actions/checkout@v4
+      - name: Check public pages, assets and API validation
+        shell: bash
+        run: |
+          if node check.mjs; then exit 0; fi
+          sleep 10
+          node check.mjs
