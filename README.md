@@ -8,4 +8,6 @@ GitHub scheduling may be delayed or skipped. The daily schedule is a target, not
 
 The workflow is intended for a public repository using standard GitHub-hosted runners. Do not activate this schedule in a private repository without checking its billing coverage.
 
+Coverage includes the chat at `/`, the series at `/la-serie/`, the exact legacy `/justicia/` redirect, linked assets, and invalid assistant/feedback requests. Run focused regression checks with `node --test check.test.mjs`.
+
 Run manually with `node check.mjs` or with the Public availability workflow's Run workflow button.
